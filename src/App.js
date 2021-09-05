@@ -1,24 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { AppBar, Toolbar, Typography} from '@material-ui/core';
+import Home from './components/song/Home';
+
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AppBar position="static" className="navbar navbar-light bg-light">
+        <Toolbar>
+          <Typography variant="h6" className='navbar-brand'>
+            Music Manager
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <div className="container mt-3">
+				<Switch>
+					<Route exact path="/" component={Home} />
+				</Switch>
+			</div>
+    </BrowserRouter>
+
   );
 }
 
