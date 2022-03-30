@@ -2,8 +2,6 @@ import { React, useEffect, useState } from 'react';
 import ListSong from './ListSong';
 import SongForm from './SongForm';
 import SongAction from '../../actions/songs';
-import axios from "axios";
-import FormData from "form-data";
 import _ from "lodash";
 
 function Home(){
@@ -18,8 +16,6 @@ function Home(){
             link: ''
         }
     });
-
-    const SERVER_URL = "http://localhost:3000";
 
     useEffect(() => {
         SongAction.getAllSongs().then( res => {
@@ -47,15 +43,6 @@ function Home(){
     }
 
     const onSubmit = async (song) => {
-        // const file = song.file;
-        // // uploadfile
-        // var formData = new FormData();
-        // formData.append("mp3", file);
-        // axios.post(`${SERVER_URL}/uploads`, formData, {
-        //     headers: {
-        //       'Content-Type': 'multipart/form-data'
-        //     }
-        // })
         // send request create Song for server
         let bodyRequest = {
             name: song.name,
@@ -70,17 +57,6 @@ function Home(){
     }
 
     const onUpdate = async (song) => {
-        // const file = song.file;
-        // if(file !== '') {
-        //     // uploadfile
-        //     var formData = new FormData();
-        //     formData.append("mp3", file);
-        //     axios.post(`${SERVER_URL}/uploads`, formData, {
-        //         headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //         }
-        //     })
-        // }
         // send request create Song for server
         let bodyRequest = {
             name: song.name,
@@ -119,6 +95,7 @@ function Home(){
             let index = _.findIndex(listSongs, function(o) { return o._id === id; });
             listSongs.splice(index,1)
             setListSongs([...listSongs])
+            if(formStatus.isFormShown) onCloseForm();
         }
     }
 
@@ -143,7 +120,7 @@ function Home(){
             })
         }
     }
-
+    console.log('render')
     return(
         <div className="row">
             {formStatus.isFormShown? <SongForm 
